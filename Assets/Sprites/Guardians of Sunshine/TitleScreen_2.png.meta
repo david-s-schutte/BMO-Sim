@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bd3b1d630b19f3742a1a72152443c85e
+guid: 706369a9ade1ed0419a53d734f389e91
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,128 +108,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Finn Jump_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 144
-        height: 192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6bc0153c27390e49bf36292e39eba3a
-      internalID: 713593720
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Finn Jump_1
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 144
-        height: 192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ab1d1c964f781e148beb8dcf5f6478c6
-      internalID: 1345023755
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Finn Jump_2
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 144
-        height: 192
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a8c9fe6f07b685646b39a9f256faaa35
-      internalID: -262295255
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Finn Jump_3
-      rect:
-        serializedVersion: 2
-        x: 764
-        y: 8
-        width: 148
-        height: 180
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 93d0732e5e944b640b972b6a45d9fcbd
-      internalID: 1130031140
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Finn Jump_4
-      rect:
-        serializedVersion: 2
-        x: 1020
-        y: 0
-        width: 156
-        height: 164
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cbb870e85f0be1b49af3c32d2fde2a4c
-      internalID: -1615324818
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ef88bc68078ea6d479f585034c6e01fa
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Finn Jump_0: 713593720
-      Finn Jump_1: 1345023755
-      Finn Jump_2: -262295255
-      Finn Jump_3: 1130031140
-      Finn Jump_4: -1615324818
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -16,9 +16,13 @@ public class PlayerGoS : MonoBehaviour
     [SerializeField] float hitCheckDistance;
     [SerializeField] Vector2 hitBoxSize;
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] bool hasBomba = true;
+    private GameObject thrownBomba;
+    [SerializeField] GameObject bomba;
 
     [Header("Control Settings")]
     [SerializeField] string horizontalAxis = "Horizontal";
+    [SerializeField] string verticalAxis = "Vertical";
     [SerializeField] string jumpButton = "Jump1";
     [SerializeField] string attackButton;
 
@@ -41,32 +45,59 @@ public class PlayerGoS : MonoBehaviour
     {
         GetPlayerInput();
         MovePlayer();
-        Attack();
     }
 
     void GetPlayerInput()
     {
-        intendedMovement = new Vector2(Input.GetAxis(horizontalAxis) * moveSpeed, 0);
+        //Move the player if we aren't attacking
+        if(!Input.GetButton(attackButton) && Input.GetAxis(verticalAxis) >= 0)
+            intendedMovement = new Vector2(Input.GetAxis(horizontalAxis) * moveSpeed, 0);
+        
+        //Make the player jump if they are touching the ground
         if (isGrounded() && Input.GetButtonDown(jumpButton))
             intendedJump = new Vector2(0, jumpHeight);
         else
             intendedJump = Vector2.zero;
+
+        //Engage in combat if the player wishes to
+        Attack();
+
+        //Rotate the player depending on last direction given
+        if (Input.GetAxis(horizontalAxis) > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        else if (Input.GetAxis(horizontalAxis) < 0)
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
     }
 
     void Attack()
     {
-        if (isGrounded() && Input.GetButtonDown(attackButton))
+        //Can only attacked if grounded and not moving
+        if (isGrounded())
         {
-            RaycastHit2D hit = Physics2D.BoxCast(transform.position, hitBoxSize, 0, transform.right, hitCheckDistance, enemyLayer);
-            if(hit.collider != null)
+            //Use Bomba if special input provided
+            if (Input.GetAxis(verticalAxis) < 0  && hasBomba && Input.GetButton(attackButton))
             {
-                if (hit.collider.GetComponent<EnemyGoS>())
-                    hit.collider.GetComponent<EnemyGoS>().TakeDamage(attackDamage);
+                intendedMovement = Vector2.zero;
+                thrownBomba = Instantiate(bomba, transform.position + Vector3.up, Quaternion.identity);
+                hasBomba = false;
             }
-            else
+            else if (Input.GetAxis(verticalAxis) < 0 && Input.GetButtonUp(attackButton))
             {
-                Debug.Log("No enemy!");
+                if(thrownBomba != null)
+                    thrownBomba.GetComponent<BombaGos>().ThrowBomba();
             }
+            //Regular Attack
+            else if(Input.GetButtonDown(attackButton))
+            {
+                Debug.Log("Attack!");
+                //Create a hitbox whenever we press attack and deal damage to the first thing caught in it
+                RaycastHit2D hit = Physics2D.BoxCast(transform.position, hitBoxSize, 0, transform.right, hitCheckDistance, enemyLayer);
+                if (hit.collider != null)
+                    if (hit.collider.GetComponent<EnemyGoS>())
+                        hit.collider.GetComponent<EnemyGoS>().TakeDamage(attackDamage);
+            }
+            
+
         }
 
     }

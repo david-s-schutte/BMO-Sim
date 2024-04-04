@@ -16,11 +16,10 @@ public class EnemyGoS : MonoBehaviour
 
     public void TakeDamage(int damageTaken)
     {
-        Debug.Log("Ouchie! " + currentHealth);
-        if (currentHealth > 1)
-            currentHealth -= damageTaken;
-        else
+        Debug.Log("Taking " + damageTaken + " points of damage");
+        currentHealth -= damageTaken;
+        if (currentHealth < 1)
             Destroy(this.gameObject);
-
+        Debug.Log("Health Remaining: " + currentHealth);
     }
 }

@@ -18,6 +18,7 @@ public class BombaGos : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0;
     }
 
     // Update is called once per frame
@@ -36,6 +37,7 @@ public class BombaGos : MonoBehaviour
     public void ThrowBomba()
     {
         thrown = true;
+        rb.gravityScale = 0.2f;
         rb.AddForce(trajectory * throwSpeed, ForceMode2D.Impulse);
     }
 

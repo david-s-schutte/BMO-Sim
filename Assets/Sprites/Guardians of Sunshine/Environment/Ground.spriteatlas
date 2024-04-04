@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ground
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 1
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 5a6f127327627a24fb9e9515f3d6f129, type: 3}
+    - {fileID: 2800000, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+    - {fileID: 2800000, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+    - {fileID: 2800000, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+    - {fileID: 2800000, guid: 2ee3dfcbf8fb14d40a859dc3d84646c5, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 5a6f127327627a24fb9e9515f3d6f129: 21300000
+    - 2ee3dfcbf8fb14d40a859dc3d84646c5: 21300000
+    - 43903c1fc5737a849a94aa8f837dce0f: 261498056
+    - 43903c1fc5737a849a94aa8f837dce0f: -808717054
+    - 43903c1fc5737a849a94aa8f837dce0f: -2056716600
+    - 43903c1fc5737a849a94aa8f837dce0f: 1375944063
+    - 43903c1fc5737a849a94aa8f837dce0f: -287743207
+    - 43903c1fc5737a849a94aa8f837dce0f: -375558487
+    - 43903c1fc5737a849a94aa8f837dce0f: -1640314438
+    - 43903c1fc5737a849a94aa8f837dce0f: 1377098634
+    - 43903c1fc5737a849a94aa8f837dce0f: -371982120
+    - 43903c1fc5737a849a94aa8f837dce0f: 190064069
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 5a6f127327627a24fb9e9515f3d6f129, type: 3}
+  - {fileID: 21300000, guid: 2ee3dfcbf8fb14d40a859dc3d84646c5, type: 3}
+  - {fileID: 261498056, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: -808717054, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: -2056716600, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: 1375944063, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: -287743207, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: -375558487, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: -1640314438, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: 1377098634, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: -371982120, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  - {fileID: 190064069, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - GroundLeftspng
+  - Cacti
+  - GroundTiles-Sheet_6
+  - GroundTiles-Sheet_7
+  - GroundTiles-Sheet_4
+  - GroundTiles-Sheet_5
+  - GroundTiles-Sheet_2
+  - GroundTiles-Sheet_3
+  - GroundTiles-Sheet_0
+  - GroundTiles-Sheet_1
+  - GroundTiles-Sheet_8
+  - GroundTiles-Sheet_9
+  m_RenderDataMap: {}
+  m_Tag: Ground
+  m_IsVariant: 0

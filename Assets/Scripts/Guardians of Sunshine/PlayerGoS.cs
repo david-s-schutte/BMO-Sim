@@ -15,16 +15,23 @@ public class PlayerGoS : MonoBehaviour
     [SerializeField] int attackDamage;
     [SerializeField] float hitCheckDistance;
     [SerializeField] Vector2 hitBoxSize;
+    [SerializeField] float hitCoolDown = 0.2f;
+    bool canHit = true;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] bool hasBomba = true;
     private GameObject thrownBomba;
     [SerializeField] GameObject bomba;
+
+    [Header("Player Health")]
+    [SerializeField] int lives = 5;
+    [SerializeField] Vector2 spawnPoint;
 
     [Header("Control Settings")]
     [SerializeField] string horizontalAxis = "Horizontal";
     [SerializeField] string verticalAxis = "Vertical";
     [SerializeField] string jumpButton = "Jump1";
     [SerializeField] string attackButton;
+
 
     //Components
     Rigidbody2D rb;
@@ -40,6 +47,7 @@ public class PlayerGoS : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spawnPoint = transform.position;
     }
 
     // Update is called once per frame
@@ -47,6 +55,7 @@ public class PlayerGoS : MonoBehaviour
     {
         GetPlayerInput();
         UpdateAnimations();
+        Debug.Log("Current Spawn: " + spawnPoint);
     }
 
     private void FixedUpdate()
@@ -58,6 +67,7 @@ public class PlayerGoS : MonoBehaviour
     {
         //Move the player if we aren't attacking
         //if(!Input.GetButton(attackButton) || Input.GetAxis(verticalAxis) >= 0)
+        if(isGrounded())
             intendedMovement = new Vector2(Input.GetAxis(horizontalAxis) * moveSpeed, 0);
         
         //Make the player jump if they are touching the ground
@@ -100,9 +110,11 @@ public class PlayerGoS : MonoBehaviour
                     thrownBomba.GetComponent<BombaGos>().ThrowBomba();
             }
             //Regular Attack
-            else if(Input.GetButtonDown(attackButton))
+            else if(Input.GetButton(attackButton) && canHit)
             {
                 Debug.Log("Attack!");
+                canHit = false;
+                Invoke("HitCoolDown", hitCoolDown);
                 //Create a hitbox whenever we press attack and deal damage to the first thing caught in it
                 RaycastHit2D hit = Physics2D.BoxCast(transform.position, hitBoxSize, 0, transform.right, hitCheckDistance, enemyLayer);
                 if (hit.collider != null)
@@ -128,16 +140,16 @@ public class PlayerGoS : MonoBehaviour
 
     void UpdateAnimations()
     {
-        animator.SetFloat("moveSpeed", Mathf.Abs(intendedMovement.x));
+        animator.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
         animator.SetBool("jump", isGrounded());
         animator.SetBool("hasBomba", hasBomba);
         animator.SetBool("throwBomba", Input.GetButton(attackButton));
         animator.SetFloat("crouching", Input.GetAxis(verticalAxis));
-        animator.SetBool("attack1", Input.GetButtonDown(attackButton));
-        if (animator.GetBool("attack1") && Input.GetButton(attackButton))
-            animator.SetBool("attack2", true);
-        else
-            animator.SetBool("attack2", false);
+        animator.SetBool("attack1", Input.GetButton(attackButton));
+        //if (animator.GetBool("attack1") && canHit/* && Input.GetButtonDown(attackButton)*/)
+        //    animator.SetBool("attack2", true);
+        //else
+        //    animator.SetBool("attack2", false);
     }
 
     private void OnDrawGizmos()
@@ -149,6 +161,15 @@ public class PlayerGoS : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(collision.gameObject);
+        if (collision.tag == "Coin")
+            collision.gameObject.GetComponent<CoinGoS>().CollectCoin();
+        else if (collision.tag == " Checkpoint")
+            //spawnPoint = collision.transform.position;
+            Debug.Log("Check");
+    }
+
+    void HitCoolDown()
+    {
+        canHit = true;
     }
 }

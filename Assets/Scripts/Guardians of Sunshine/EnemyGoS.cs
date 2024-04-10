@@ -17,13 +17,11 @@ public class EnemyGoS : MonoBehaviour
 
     public void TakeDamage(int damageTaken)
     {
-        Debug.Log("Taking " + damageTaken + " points of damage");
         currentHealth -= damageTaken;
         if (currentHealth < 1)
         {
             GameObject.FindWithTag("GameController").GetComponent<GameManager>().AddScore(totalHealth * 500);
             Destroy(this.gameObject);
         }
-        Debug.Log("Health Remaining: " + currentHealth);
     }
 }

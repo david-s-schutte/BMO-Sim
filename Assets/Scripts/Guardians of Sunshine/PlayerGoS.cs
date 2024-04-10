@@ -69,9 +69,9 @@ public class PlayerGoS : MonoBehaviour
     void GetPlayerInput()
     {
         //Move the player if we aren't attacking
-        if(!Input.GetButton(bombaButton))
+        //if(!Input.GetButton(bombaButton))
         //if(isGrounded())
-            intendedMovement = new Vector2(Input.GetAxis(horizontalAxis) * moveSpeed, 0);
+        intendedMovement = new Vector2(Input.GetAxis(horizontalAxis) * moveSpeed, 0);
 
         if (Input.GetButton(bombaButton))
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -94,26 +94,18 @@ public class PlayerGoS : MonoBehaviour
 
     void Attack()
     {
+        //Can only attacked if grounded and not moving
         if (Mathf.Abs(rb.velocity.x) > 0.1)
             return;
-        //Can only attacked if grounded and not moving
+
         if (isGrounded())
         {
-            //Use Bomba if special input provided
-            if (hasBomba && Input.GetButton(bombaButton))
+            //Bomba Attack
+            if (hasBomba && Input.GetButtonDown(bombaButton))
             {
                 rb.velocity = Vector2.zero;
-                thrownBomba = Instantiate(bomba, transform.position + Vector3.up * 1.3f, Quaternion.identity/*, this.gameObject.transform*/);
                 hasBomba = false;
-            }
-            else if (Input.GetButton(bombaButton))
-            {
-                rb.velocity = Vector2.zero;
-            }
-            else if (Input.GetButtonUp(bombaButton))
-            {
-                if(thrownBomba != null)
-                    thrownBomba.GetComponent<BombaGos>().ThrowBomba(new Vector2(transform.forward.z, 0.1f));
+                thrownBomba = Instantiate(bomba, transform.position + Vector3.up * 2f, Quaternion.LookRotation(transform.forward));
             }
             //Regular Attack
             else if(Input.GetButton(attackButton) && canHit)
@@ -151,13 +143,6 @@ public class PlayerGoS : MonoBehaviour
         animator.SetBool("throwBomba", Input.GetButton(bombaButton));
         animator.SetFloat("crouching", Input.GetAxis(verticalAxis));
         animator.SetBool("attack1", Input.GetButton(attackButton));
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position - transform.up * groundCheckDistance, groundBoxSize);
-        Gizmos.DrawWireCube(transform.position + transform.right * hitCheckDistance, hitBoxSize);
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -206,5 +191,11 @@ public class PlayerGoS : MonoBehaviour
     public bool GetHasBomba()
     {
         return hasBomba;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position - transform.up * groundCheckDistance, groundBoxSize);
+        Gizmos.DrawWireCube(transform.position + transform.right * hitCheckDistance, hitBoxSize);
     }
 }

@@ -36673,7 +36673,7 @@ Transform:
   m_GameObject: {fileID: 504489433}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.37, y: 0.47199965, z: -10}
+  m_LocalPosition: {x: -15.44, y: 0.024999619, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37314,7 +37314,7 @@ Transform:
   m_GameObject: {fileID: 651643823}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.37, y: 0.47199965, z: -10}
+  m_LocalPosition: {x: -15.44, y: 0.024999619, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -37448,7 +37448,7 @@ Transform:
   m_GameObject: {fileID: 693683830}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.37, y: -2.3, z: 0}
+  m_LocalPosition: {x: -15.44, y: -2.747, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -37465,11 +37465,11 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1.25
+  m_UseAutoMass: 1
+  m_Mass: 1.7996523
   m_LinearDrag: 10
   m_AngularDrag: 10
-  m_GravityScale: 10
+  m_GravityScale: 7
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -37496,13 +37496,13 @@ MonoBehaviour:
   moveSpeed: 120
   jumpHeight: 60
   groundCheckDistance: 1.13
-  groundBoxSize: {x: 0.98, y: 0.27}
+  groundBoxSize: {x: 0.59, y: 0.27}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   attackDamage: 1
   hitCheckDistance: 1
-  hitBoxSize: {x: 0.78, y: 1.88}
+  hitBoxSize: {x: 1.12, y: 1.88}
   hitCoolDown: 0.5
   enemyLayer:
     serializedVersion: 2
@@ -77101,7 +77101,7 @@ Tilemap:
       - {fileID: -1811146467, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
       - {fileID: 1454429498, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
       - {fileID: -281647467, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
-      m_AnimationSpeed: 10.000001
+      m_AnimationSpeed: 10
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 47, y: -11, z: 0}

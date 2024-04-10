@@ -5,7 +5,7 @@ using UnityEngine;
 public class BombaGos : MonoBehaviour
 {
     [SerializeField] bool thrown = false;
-    [SerializeField] Vector2 trajectory = new Vector2(1, 0.1f);
+    //[SerializeField] Vector2 trajectory = new Vector2(1, 0.1f);
     [SerializeField] float throwSpeed = 4;
     [SerializeField] float lifeTime = 5;
     [SerializeField] int attackDamage = 5;
@@ -26,18 +26,25 @@ public class BombaGos : MonoBehaviour
     {
         if (thrown)
         {
+            transform.parent = null;
+
             lifeTime -= Time.deltaTime;
             if(lifeTime < 0 )
             {
                 Destroy(this.gameObject);
             }
         }
+        else
+        {
+            rb.velocity = Vector3.zero;
+        }
     }
 
-    public void ThrowBomba()
+    public void ThrowBomba(Vector2 trajectory)
     {
         thrown = true;
         rb.gravityScale = 0.2f;
+        //transform.position = transform.localPosition + new Vector3(0, 1, 0);
         rb.AddForce(trajectory * throwSpeed, ForceMode2D.Impulse);
     }
 

@@ -25,12 +25,16 @@ public class PlayerGoS : MonoBehaviour
     [Header("Player Health")]
     [SerializeField] int lives = 5;
     [SerializeField] Vector2 spawnPoint;
+    [SerializeField] bool isHit = false;
+    [SerializeField] float hitRecovery = 5f;
 
     [Header("Control Settings")]
     [SerializeField] string horizontalAxis = "Horizontal";
     [SerializeField] string verticalAxis = "Vertical";
     [SerializeField] string jumpButton = "Jump1";
     [SerializeField] string attackButton;
+    [SerializeField] string bombaButton;
+
 
 
     //Components
@@ -55,7 +59,6 @@ public class PlayerGoS : MonoBehaviour
     {
         GetPlayerInput();
         UpdateAnimations();
-        Debug.Log("Current Spawn: " + spawnPoint);
     }
 
     private void FixedUpdate()
@@ -66,12 +69,15 @@ public class PlayerGoS : MonoBehaviour
     void GetPlayerInput()
     {
         //Move the player if we aren't attacking
-        //if(!Input.GetButton(attackButton) || Input.GetAxis(verticalAxis) >= 0)
-        if(isGrounded())
+        if(!Input.GetButton(bombaButton))
+        //if(isGrounded())
             intendedMovement = new Vector2(Input.GetAxis(horizontalAxis) * moveSpeed, 0);
-        
+
+        if (Input.GetButton(bombaButton))
+            rb.velocity = new Vector2(0, rb.velocity.y);
+
         //Make the player jump if they are touching the ground
-        if (isGrounded() && Input.GetButton(jumpButton))
+        if (isGrounded() && Input.GetButton(jumpButton) && !Input.GetButton(bombaButton))
             intendedJump = new Vector2(0, jumpHeight);
         else
             intendedJump = Vector2.zero;
@@ -88,31 +94,30 @@ public class PlayerGoS : MonoBehaviour
 
     void Attack()
     {
-        if (Mathf.Abs(intendedMovement.x) > 0)
+        if (Mathf.Abs(rb.velocity.x) > 0.1)
             return;
         //Can only attacked if grounded and not moving
         if (isGrounded())
         {
             //Use Bomba if special input provided
-            if (Input.GetAxis(verticalAxis) < 0  && hasBomba && Input.GetButton(attackButton))
+            if (hasBomba && Input.GetButton(bombaButton))
             {
-                intendedMovement = Vector2.zero;
-                thrownBomba = Instantiate(bomba, transform.position + Vector3.up * 1.1f, Quaternion.identity);
+                rb.velocity = Vector2.zero;
+                thrownBomba = Instantiate(bomba, transform.position + Vector3.up * 1.3f, Quaternion.identity/*, this.gameObject.transform*/);
                 hasBomba = false;
             }
-            else if (Input.GetAxis(verticalAxis) < 0 && Input.GetButton(attackButton))
+            else if (Input.GetButton(bombaButton))
             {
-                intendedMovement = Vector2.zero;
+                rb.velocity = Vector2.zero;
             }
-            else if (Input.GetAxis(verticalAxis) < 0 && Input.GetButtonUp(attackButton))
+            else if (Input.GetButtonUp(bombaButton))
             {
                 if(thrownBomba != null)
-                    thrownBomba.GetComponent<BombaGos>().ThrowBomba();
+                    thrownBomba.GetComponent<BombaGos>().ThrowBomba(new Vector2(transform.forward.z, 0.1f));
             }
             //Regular Attack
             else if(Input.GetButton(attackButton) && canHit)
             {
-                Debug.Log("Attack!");
                 canHit = false;
                 Invoke("HitCoolDown", hitCoolDown);
                 //Create a hitbox whenever we press attack and deal damage to the first thing caught in it
@@ -143,13 +148,9 @@ public class PlayerGoS : MonoBehaviour
         animator.SetFloat("moveSpeed", Mathf.Abs(rb.velocity.x));
         animator.SetBool("jump", isGrounded());
         animator.SetBool("hasBomba", hasBomba);
-        animator.SetBool("throwBomba", Input.GetButton(attackButton));
+        animator.SetBool("throwBomba", Input.GetButton(bombaButton));
         animator.SetFloat("crouching", Input.GetAxis(verticalAxis));
         animator.SetBool("attack1", Input.GetButton(attackButton));
-        //if (animator.GetBool("attack1") && canHit/* && Input.GetButtonDown(attackButton)*/)
-        //    animator.SetBool("attack2", true);
-        //else
-        //    animator.SetBool("attack2", false);
     }
 
     private void OnDrawGizmos()
@@ -163,13 +164,47 @@ public class PlayerGoS : MonoBehaviour
     {
         if (collision.tag == "Coin")
             collision.gameObject.GetComponent<CoinGoS>().CollectCoin();
-        else if (collision.tag == " Checkpoint")
-            //spawnPoint = collision.transform.position;
-            Debug.Log("Check");
+        if (collision.tag == "Checkpoint")
+            spawnPoint = collision.transform.position;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isHit)
+            return;
+
+        if(collision.gameObject.tag == "Enemy" && collision.gameObject.layer == 3)
+        {
+            rb.velocity= Vector3.zero;
+            transform.position = spawnPoint;
+            lives--;
+        }
+        else if(collision.gameObject.tag == "Enemy")
+        {
+            rb.AddForce(new Vector2(-transform.forward.z, 1) * jumpHeight, ForceMode2D.Impulse);
+            isHit = true;
+            Invoke("DamageCoolDown", hitRecovery);
+            lives--;
+        }
     }
 
     void HitCoolDown()
     {
         canHit = true;
+    }
+
+    void DamageCoolDown()
+    {
+        isHit = false;
+    }
+
+    public int GetHealth()
+    {
+        return lives;
+    }
+
+    public bool GetHasBomba()
+    {
+        return hasBomba;
     }
 }

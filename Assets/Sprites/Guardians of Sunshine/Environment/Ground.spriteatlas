@@ -16,7 +16,7 @@ SpriteAtlas:
       maxTextureSize: 2048
       textureCompression: 0
       filterMode: 0
-      generateMipMaps: 1
+      generateMipMaps: 0
       readable: 0
       crunchedCompression: 0
       sRGB: 1
@@ -36,10 +36,10 @@ SpriteAtlas:
       m_ForceMaximumCompressionQuality_BC6H_BC7: 0
     packingSettings:
       serializedVersion: 2
-      padding: 4
+      padding: 2
       blockOffset: 1
       allowAlphaSplitting: 0
-      enableRotation: 0
+      enableRotation: 1
       enableTightPacking: 1
       enableAlphaDilation: 0
     secondaryTextureSettings: {}
@@ -50,11 +50,19 @@ SpriteAtlas:
     - {fileID: 2800000, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
     - {fileID: 2800000, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
     - {fileID: 2800000, guid: 2ee3dfcbf8fb14d40a859dc3d84646c5, type: 3}
+    - {fileID: 2800000, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
+    - {fileID: 2800000, guid: 29edd90a6ee153046a46c3d0f825ea99, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
     - 5a6f127327627a24fb9e9515f3d6f129: 21300000
+    - 323c5f65728f085418eec1be8a2caf92: -162390484
+    - 323c5f65728f085418eec1be8a2caf92: -1610859245
+    - 323c5f65728f085418eec1be8a2caf92: -1811146467
+    - 323c5f65728f085418eec1be8a2caf92: 1454429498
+    - 323c5f65728f085418eec1be8a2caf92: -281647467
+    - 29edd90a6ee153046a46c3d0f825ea99: 21300000
     - 2ee3dfcbf8fb14d40a859dc3d84646c5: 21300000
     - 43903c1fc5737a849a94aa8f837dce0f: 261498056
     - 43903c1fc5737a849a94aa8f837dce0f: -808717054
@@ -69,6 +77,12 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: 5a6f127327627a24fb9e9515f3d6f129, type: 3}
+  - {fileID: -162390484, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
+  - {fileID: -1610859245, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
+  - {fileID: -1811146467, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
+  - {fileID: 1454429498, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
+  - {fileID: -281647467, guid: 323c5f65728f085418eec1be8a2caf92, type: 3}
+  - {fileID: 21300000, guid: 29edd90a6ee153046a46c3d0f825ea99, type: 3}
   - {fileID: 21300000, guid: 2ee3dfcbf8fb14d40a859dc3d84646c5, type: 3}
   - {fileID: 261498056, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
   - {fileID: -808717054, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
@@ -82,6 +96,12 @@ SpriteAtlas:
   - {fileID: 190064069, guid: 43903c1fc5737a849a94aa8f837dce0f, type: 3}
   m_PackedSpriteNamesToIndex:
   - GroundLeftspng
+  - Fire-Sheet_0
+  - Fire-Sheet_1
+  - Fire-Sheet_2
+  - Fire-Sheet_3
+  - Fire-Sheet_4
+  - Fire
   - Cacti
   - GroundTiles-Sheet_6
   - GroundTiles-Sheet_7

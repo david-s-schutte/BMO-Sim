@@ -14,6 +14,7 @@ public class CoinGoS : MonoBehaviour
     public void CollectCoin()
     {
         animator.SetBool("Collected", true);
+        GameObject.FindWithTag("GameController").GetComponent<GameManager>().AddScore(100);
         Invoke("RemoveCoin", 0.5f);
     }
 

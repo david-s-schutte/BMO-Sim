@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Checkpoint
   - Coin
+  - Tongue
   layers:
   - Default
   - TransparentFX

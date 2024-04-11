@@ -7,9 +7,6 @@ public class EnemyGoS : MonoBehaviour
     [Header("Attributes")]
     [SerializeField] int totalHealth = 2;
     int currentHealth;
-    //[SerializeField] int pointValue = 1000;
-
-    // Start is called before the first frame update
     void Start()
     {
         currentHealth = totalHealth;

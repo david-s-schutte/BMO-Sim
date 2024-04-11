@@ -16,7 +16,7 @@ public class PlayerGoS : MonoBehaviour
     [SerializeField] float hitCheckDistance;
     [SerializeField] Vector2 hitBoxSize;
     [SerializeField] float hitCoolDown = 0.2f;
-    bool canHit = true;
+    bool isHitting = false;
     [SerializeField] LayerMask enemyLayer;
     [SerializeField] bool hasBomba = true;
     private GameObject thrownBomba;
@@ -40,6 +40,7 @@ public class PlayerGoS : MonoBehaviour
     //Components
     Rigidbody2D rb;
     Animator animator;
+    [SerializeField] PlayerDeathGoS pDeath;
 
     //Movement
     Vector2 intendedMovement;
@@ -52,6 +53,7 @@ public class PlayerGoS : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spawnPoint = transform.position;
+        pDeath = GetComponent<PlayerDeathGoS>();
     }
 
     // Update is called once per frame
@@ -98,6 +100,15 @@ public class PlayerGoS : MonoBehaviour
         if (Mathf.Abs(rb.velocity.x) > 0.1)
             return;
 
+        if (isHitting)
+        {
+            Debug.Log("Attack Active!");
+            RaycastHit2D hit = Physics2D.BoxCast(transform.position, hitBoxSize, 0, transform.right, hitCheckDistance, enemyLayer);
+            if (hit.collider != null)
+                if (hit.collider.GetComponent<EnemyGoS>())
+                    hit.collider.GetComponent<EnemyGoS>().TakeDamage(attackDamage);
+        }
+
         if (isGrounded())
         {
             //Bomba Attack
@@ -108,15 +119,10 @@ public class PlayerGoS : MonoBehaviour
                 thrownBomba = Instantiate(bomba, transform.position + Vector3.up * 2f, Quaternion.LookRotation(transform.forward));
             }
             //Regular Attack
-            else if(Input.GetButton(attackButton) && canHit)
+            else if(Input.GetButtonDown(attackButton) && !isHitting)
             {
-                canHit = false;
+                isHitting = true;
                 Invoke("HitCoolDown", hitCoolDown);
-                //Create a hitbox whenever we press attack and deal damage to the first thing caught in it
-                RaycastHit2D hit = Physics2D.BoxCast(transform.position, hitBoxSize, 0, transform.right, hitCheckDistance, enemyLayer);
-                if (hit.collider != null)
-                    if (hit.collider.GetComponent<EnemyGoS>())
-                        hit.collider.GetComponent<EnemyGoS>().TakeDamage(attackDamage);
             }
         }
 
@@ -142,15 +148,31 @@ public class PlayerGoS : MonoBehaviour
         animator.SetBool("hasBomba", hasBomba);
         animator.SetBool("throwBomba", Input.GetButton(bombaButton));
         animator.SetFloat("crouching", Input.GetAxis(verticalAxis));
-        animator.SetBool("attack1", Input.GetButton(attackButton));
+        animator.SetBool("attack1", isHitting);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Coin")
             collision.gameObject.GetComponent<CoinGoS>().CollectCoin();
+
         if (collision.tag == "Checkpoint")
             spawnPoint = collision.transform.position;
+
+        if(collision.tag == "Enemy")
+        {
+            rb.AddForce(new Vector2(-transform.forward.z, 1) * jumpHeight, ForceMode2D.Impulse);
+            isHit = true;
+            Invoke("DamageCoolDown", hitRecovery);
+            lives--;
+        }
+
+        if(collision.tag == "Tongue")
+        {
+            //Debug.Log("eated up");
+            pDeath.enabled = true;
+            this.GetComponent<PlayerGoS>().enabled = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -175,7 +197,7 @@ public class PlayerGoS : MonoBehaviour
 
     void HitCoolDown()
     {
-        canHit = true;
+        isHitting = false;
     }
 
     void DamageCoolDown()
@@ -191,6 +213,11 @@ public class PlayerGoS : MonoBehaviour
     public bool GetHasBomba()
     {
         return hasBomba;
+    }
+
+    public void KillPlayer()
+    {
+        lives = 0;
     }
 
     private void OnDrawGizmos()

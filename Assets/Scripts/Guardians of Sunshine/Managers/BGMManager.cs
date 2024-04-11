@@ -18,4 +18,14 @@ public class BGMManager : MonoBehaviour
         if (Input.GetButton("Submit"))
             bgm.volume = 0.2f;
     }
+
+    public void StopBGM()
+    {
+        bgm.Stop();
+    }
+
+    public void StartBGM()
+    {
+        bgm.Play();
+    }
 }

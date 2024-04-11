@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     PlayerGoS player;
     UIManager uiManager;
+    BGMManager bgmManager;
     int score = 0;
     bool gameStarted = false;
 
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
         uiManager = GetComponent<UIManager>();
         player = GameObject.FindWithTag("Player").GetComponent<PlayerGoS>();
         playerObj.SetActive(gameStarted);
+        bgmManager = GetComponent<BGMManager>();
     }
 
     // Update is called once per frame
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
         {
             gameOverScreen.SetActive(true);
             playerObj.SetActive(false);
+            bgmManager.StopBGM();
         }
 
         if (!gameStarted)

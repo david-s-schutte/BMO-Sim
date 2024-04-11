@@ -40,7 +40,8 @@ public class PlayerGoS : MonoBehaviour
     //Components
     Rigidbody2D rb;
     Animator animator;
-    [SerializeField] PlayerDeathGoS pDeath;
+    PlayerDeathGoS pDeath;
+    SpriteRenderer spriteRenderer;
 
     //Movement
     Vector2 intendedMovement;
@@ -54,6 +55,7 @@ public class PlayerGoS : MonoBehaviour
         animator = GetComponent<Animator>();
         spawnPoint = transform.position;
         pDeath = GetComponent<PlayerDeathGoS>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -134,7 +136,7 @@ public class PlayerGoS : MonoBehaviour
         rb.AddForce(intendedJump, ForceMode2D.Impulse);
     }
 
-    bool isGrounded()
+    public bool isGrounded()
     {
         if(Physics2D.BoxCast(transform.position, groundBoxSize, 0, -transform.up, groundCheckDistance, groundLayer))
             return true; 
@@ -149,6 +151,11 @@ public class PlayerGoS : MonoBehaviour
         animator.SetBool("throwBomba", Input.GetButton(bombaButton));
         animator.SetFloat("crouching", Input.GetAxis(verticalAxis));
         animator.SetBool("attack1", isHitting);
+        if (isHit)
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 0.5f);
+        else
+            spriteRenderer.color = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, 1f);
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -213,6 +220,16 @@ public class PlayerGoS : MonoBehaviour
     public bool GetHasBomba()
     {
         return hasBomba;
+    }
+
+    public bool GetAttacking()
+    {
+        return isHitting;
+    }
+
+    public bool GetHurtStatus()
+    {
+        return isHit;
     }
 
     public void KillPlayer()

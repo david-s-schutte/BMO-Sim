@@ -10,6 +10,7 @@ public class BouncyBeeGoS : MonoBehaviour
     private int currentPoint;
     private bool canMove;
     [SerializeField] float coolDownTime = 1f;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +21,16 @@ public class BouncyBeeGoS : MonoBehaviour
         currentPoint = 0;
         destination = travelPoints[currentPoint];
         canMove = true;
+        animator = GetComponent<Animator>();
         //destination = transform.Find("Destination").transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("State " + currentPoint);
+        animator.SetBool("canMove", canMove);
+        animator.SetInteger("currentPoint", currentPoint);
         if (!canMove)
             return;
 

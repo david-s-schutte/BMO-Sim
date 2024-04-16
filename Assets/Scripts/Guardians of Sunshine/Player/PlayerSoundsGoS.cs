@@ -11,6 +11,7 @@ public class PlayerSoundsGoS : MonoBehaviour
     [SerializeField] AudioClip jump;
     [SerializeField] AudioClip hit;
     [SerializeField] AudioClip hurt;
+    public AudioClip fireHurt;
     [SerializeField] float hurtDelay = 0.2f;
     bool alreadyHurt = false;
 
@@ -28,32 +29,26 @@ public class PlayerSoundsGoS : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(source.isPlaying);
-
         if (source.isPlaying)
             return;
 
         if (rb.velocity.x > 0.1 && !alreadyWalking && main.isGrounded())
         {
+            SwitchClip(walk);
             alreadyWalking = true;
-            source.clip = walk;
-            source.Play();
             Invoke("ContinueWalkSound", walkDelay);
         }
         if (Input.GetButton("Jump1") && main.isGrounded())
         {
-            source.clip = jump;
-            source.Play();
+            SwitchClip(jump);
         }
         if(Input.GetButtonDown("Fire1") && main.isGrounded() && main.GetAttacking())
         {
-            source.clip = hit;
-            source.Play();
+            SwitchClip(hit);
         }
         if (main.GetHurtStatus() && !alreadyHurt)
         {
-            source.clip = hurt;
-            source.Play();
+            SwitchClip(hurt);
             alreadyHurt = true;
             Invoke("RefreshHurtSound", hurtDelay);
         }
@@ -67,5 +62,12 @@ public class PlayerSoundsGoS : MonoBehaviour
     void RefreshHurtSound()
     {
         alreadyHurt = false;
+    }
+
+    public void SwitchClip(AudioClip clip)
+    {
+        source.Stop();
+        source.clip = clip;
+        source.Play();
     }
 }

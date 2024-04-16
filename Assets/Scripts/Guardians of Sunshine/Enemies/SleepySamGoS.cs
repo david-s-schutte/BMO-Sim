@@ -11,17 +11,21 @@ public class SleepySamGoS : MonoBehaviour
     bool isHitting = false;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] GameObject tongue;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         Invoke("StartAttack", coolDown);
+        animator = GetComponent<Animator>();
+        animator.SetBool("gotPlayer", false);
     }
 
     // Update is called once per frame
     void Update()
     {
         tongue.SetActive(isHitting);
+        animator.SetBool("isHitting", isHitting);
     }
 
     void StartAttack()
@@ -34,10 +38,5 @@ public class SleepySamGoS : MonoBehaviour
     {
         isHitting = false;
         Invoke("StartAttack", coolDown);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position + transform.right * hitCheckDistance, hitBoxSize);
     }
 }

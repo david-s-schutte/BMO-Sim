@@ -6,6 +6,7 @@ public class EnemyGoS : MonoBehaviour
 {
     [Header("Attributes")]
     [SerializeField] int totalHealth = 2;
+    [SerializeField] GameObject explosion;
     int currentHealth;
     void Start()
     {
@@ -17,7 +18,9 @@ public class EnemyGoS : MonoBehaviour
         currentHealth -= damageTaken;
         if (currentHealth < 1)
         {
+            Instantiate(explosion, new Vector2(transform.position.x, transform.position.y), transform.rotation);
             GameObject.FindWithTag("GameController").GetComponent<GameManager>().AddScore(totalHealth * 500);
+            GameObject.FindWithTag("GameController").GetComponent<GameManager>().RemoveBoss();
             Destroy(this.gameObject);
         }
     }

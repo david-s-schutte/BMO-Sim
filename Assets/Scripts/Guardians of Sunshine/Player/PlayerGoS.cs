@@ -104,7 +104,6 @@ public class PlayerGoS : MonoBehaviour
 
         if (isHitting)
         {
-            Debug.Log("Attack Active!");
             RaycastHit2D hit = Physics2D.BoxCast(transform.position, hitBoxSize, 0, transform.right, hitCheckDistance, enemyLayer);
             if (hit.collider != null)
                 if (hit.collider.GetComponent<EnemyGoS>())
@@ -177,6 +176,7 @@ public class PlayerGoS : MonoBehaviour
         if(collision.tag == "Tongue")
         {
             //Debug.Log("eated up");
+            collision.transform.parent.GetComponent<SleepySamGoS>().animator.SetBool("gotPlayer", true);
             pDeath.enabled = true;
             this.GetComponent<PlayerGoS>().enabled = false;
         }
@@ -192,6 +192,7 @@ public class PlayerGoS : MonoBehaviour
             rb.velocity= Vector3.zero;
             transform.position = spawnPoint;
             lives--;
+            GetComponent<PlayerSoundsGoS>().SwitchClip(GetComponent<PlayerSoundsGoS>().fireHurt);
         }
         else if(collision.gameObject.tag == "Enemy")
         {

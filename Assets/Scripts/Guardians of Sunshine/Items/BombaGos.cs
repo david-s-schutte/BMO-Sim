@@ -8,9 +8,12 @@ public class BombaGos : MonoBehaviour
     [SerializeField] float lifeTime = 5;
     [SerializeField] int attackDamage = 5;
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] GameObject explosionObj;
 
     Rigidbody2D rb;
-
+    AudioSource source;
+    [SerializeField] AudioClip explosion;
+    CircleCollider2D circleCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +28,14 @@ public class BombaGos : MonoBehaviour
         lifeTime -= Time.deltaTime;
         if (lifeTime < 0)
         {
-            Destroy(this.gameObject);
+            Instantiate(explosion);
+            //GetComponent<SpriteRenderer>().enabled = false;
+            //circleCollider.enabled = false;
+            //source.Stop();
+            //source.clip = explosion;
+            //source.Play();
+            Invoke("RemoveBomba", 2f);
+
         }
     }
 
@@ -41,7 +51,18 @@ public class BombaGos : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyGoS>().TakeDamage(attackDamage);
-            GetComponent<SpriteRenderer>().enabled = false;
+            Instantiate(explosion);
+            //GetComponent<SpriteRenderer>().enabled = false;
+            //circleCollider.enabled = false;
+            //source.Stop();
+            //source.clip = explosion;
+            //source.Play();
+            Invoke("RemoveBomba", 2f);
         }
+    }
+
+    void RemoveBomba()
+    {
+        Destroy(this.gameObject);
     }
 }
